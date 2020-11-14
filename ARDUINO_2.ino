@@ -9,7 +9,7 @@ long duration;
 float distanceCm;
 float volumeCm, volumeOcupado;
 float alturaTotal = 18.2;
-float raioCirc = 7.5;
+float raioCirc = 3.75;
 float areaCirc = 3.14 * (raioCirc * raioCirc);
 float volumeTotal = alturaTotal * areaCirc;
 float densidade = 1.99;
