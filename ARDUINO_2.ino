@@ -23,7 +23,7 @@ int bufferLength1 = 0;
 float mediaUltra1 = 0;
 
 //faz a média da média da leitura
-const int bufferSize2 = 4;
+const int bufferSize2 = 8;
 float ultraBuffer2[bufferSize2];
 int bufferIndex2 = 0;
 int bufferLength2 = 0; 
