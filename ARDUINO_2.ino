@@ -8,7 +8,7 @@ const int echoPin = 10;
 long duration;
 float distanceCm;
 float volumeCm, volumeOcupado;
-const float alturaTotal = 12.60;
+const float alturaTotal = 12.10;
 const float raioCirc = 4;
 const float areaCirc = 3.14 * (raioCirc * raioCirc);
 const float volumeTotal = alturaTotal * areaCirc;
@@ -52,10 +52,11 @@ void setup() {
 
 void DisplayProcedure()
 {
+  lcd.clear();
   lcd.setCursor(0, 0);
-  lcd.print("distancia: ");
+  lcd.print("Distancia: ");
   lcd.print(mediaRound);
-  lcd.print("cm");
+  lcd.print("g");
   delay(10);
   lcd.setCursor(0, 1);
   lcd.print("Volume: ");
