@@ -53,8 +53,8 @@ void setup() {
 void DisplayProcedure()
 {
   lcd.setCursor(0, 0);
-  lcd.print("Distance: ");
-  lcd.print(mediaUltra2);
+  lcd.print("distancia: ");
+  lcd.print(mediaRound);
   lcd.print("cm");
   delay(10);
   lcd.setCursor(0, 1);
@@ -73,10 +73,14 @@ void DisplayProcedure()
 
 void loop() {
 
-
-  UltrassonicProcedure();
+for(int i=0;i<4;i++)
+{
+ UltrassonicProcedure();
+  delay(10);
+   
+}
 
   DisplayProcedure();
   
-  delay(3000);
+  delay(50);
 }

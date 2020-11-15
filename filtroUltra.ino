@@ -13,16 +13,24 @@ void UltrassonicProcedure()
 
   Serial.println("BufferIndex1: "); 
   Serial.println(bufferIndex1);
+  Serial.println("bufferLength1");
+  Serial.println(bufferLength1);  
   Serial.print("mediaUltra1: ");
   Serial.println(mediaUltra1); 
   Serial.print("Buffer1:");
   for(int i = 0; i <= bufferLength1; i++){
     Serial.print(ultraBuffer1[i]);
-    Serial.println(" ");
+    Serial.print(" ");
   }
-  volumeCm = mediaUltra2 * areaCirc;
+  Serial.println(" ");
+  Serial.println("*************************************************");
+  mediaRound = (int)(mediaUltra2 * 10);
+  mediaRound = ((float)mediaRound)/10;
+  volumeCm = mediaRound * areaCirc;
   volumeOcupado = volumeTotal - volumeCm; //volume de areia
   massaG = volumeOcupado * densidade; 
+
+  
 }
 
 void media1()
@@ -45,12 +53,12 @@ void media1()
 void media2()
 {
   ultraBuffer2[bufferIndex2] = media(&ultraBuffer1[0], bufferLength1);
-  mediaUltra2 = media(&ultraBuffer2[0], bufferLength2);
   if(bufferLength2 < bufferSize2)
   {
     bufferLength2++;
   }
   bufferIndex2 = bufferIndex2 >= bufferSize2 ? 0 : bufferIndex2 + 1;// bufferIndex2 recebe o valor resultando da cndição (bufferIndex2 >= bufferSize2) se a condição for verdadeiro ele recebe 0, se não ele recebe bufferIndex2+1
+  mediaUltra2 = media(&ultraBuffer2[0], bufferLength2);
 }
 
 
@@ -58,7 +66,7 @@ float media(float *bufferUltra, int bufferLength)
 {
   float media = 0;
   
-  for(int i=0;i<=bufferLength; i++)
+  for(int i=0;i<bufferLength; i++)
   {
     media += bufferUltra[i];
     
