@@ -8,13 +8,13 @@ const int echoPin = 10;
 long duration;
 float distanceCm;
 float volumeCm, volumeOcupado;
-float alturaTotal = 18.2;
-float raioCirc = 3.75;
-float areaCirc = 3.14 * (raioCirc * raioCirc);
-float volumeTotal = alturaTotal * areaCirc;
-float densidade = 1.99;
+const float alturaTotal = 12.60;
+const float raioCirc = 4;
+const float areaCirc = 3.14 * (raioCirc * raioCirc);
+const float volumeTotal = alturaTotal * areaCirc;
+const float densidade = 1.99;
 float massaG;
-
+float mediaRound = 0; 
 //primeira media das leituras
 const int bufferSize1 = 16;
 float ultraBuffer1[bufferSize1];
