@@ -3,17 +3,20 @@ void ProcedimentoDisplay()
   char linha[16];
   float valor = conversor.distanciaFiltro2;
 
+
   // limpa display
   lcd.clear();
 
   // mostra linha 1
   lcd.setCursor(0, 0);
+  memset(&linha[0], 0, 16);
   sprintf(&linha[0], "Distancia: %.2f cm", valor);
   lcd.print(linha);
   delay(10);
 
   // mostra linha 2
   lcd.setCursor(0, 1);
+  memset(&linha[0], 0, 16);
   sprintf(&linha[0], "Volume: %.2f cm3", conversor.volume);
   lcd.print(linha);
   lcd.display();

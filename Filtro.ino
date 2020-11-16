@@ -16,9 +16,8 @@ void Filtro::atualizar(float valor)
 float Filtro::lerMedia()
 {
   float soma = 0;
-  for (uint8_t i =0; i < this->tamanho; i++)
-  {
-    soma += this->valores[i];
-  }
+  
+  for (uint8_t i =0; i < this->tamanho; i++) soma += this->valores[i];
+  
   return soma/this->tamanho;
 }

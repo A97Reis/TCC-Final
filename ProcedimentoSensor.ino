@@ -5,6 +5,8 @@ void ProcedimentoSensor()
 
   // le a distancia do sensor ultrassonico
   distancia = sensor.ler();
+  Serial.print("Valor lido: ");
+  Serial.print(distancia);
 
   // atualiza o filtro 1
   filtro1.atualizar(distancia);
@@ -25,4 +27,12 @@ float truncar_distancia(float valor)
   float aux = valor;
   aux = (int) (aux * 10);
   return ((float) aux)/10;
+}
+
+void serial_print(const char* format, ...)
+{
+  va_list args;
+  va_start(args, format);
+
+  
 }
