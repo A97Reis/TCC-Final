@@ -1,87 +1,93 @@
 #include "LiquidCrystal.h"
 
+/********************** CLASSES *************************/
+class SensorUltrassonico
+{
+  private:
+    int trigPin;
+    int echoPin;
+    float spCoef; // sound speed coefficient
+  public:
+    SensorUltrassonico(int trigPin, int echoPin);
+    SensorUltrassonico(int trigPin, int echoPin, float spCoef);
+    float ler();
+    void inicializar();
+};
+
+class Filtro
+{
+  private:
+    uint8_t indice;
+    uint8_t tamanho;
+    uint8_t tamanhoMaximo;
+    float *valores;
+  public:
+    Filtro(const uint8_t tamanhoMaximo);
+    void atualizar(float valor);
+    float lerMedia();
+};
+
+class Conversor{
+  public:
+    float distancia;
+    float volume;
+    float volumeMedido;
+    float volumeTotal;
+    float peso;
+    Conversor(float volumeTotal);
+    void atualizar(float distancia);
+};
+
+
+/********************** DISPLAY ***********************/
+
 const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
-const int trigPin = 9;
-const int echoPin = 10;
-long duration;
-float distanceCm;
-float volumeCm, volumeOcupado;
-const float alturaTotal = 12.10;
-const float raioCirc = 4;
-const float areaCirc = 3.14 * (raioCirc * raioCirc);
-const float volumeTotal = alturaTotal * areaCirc;
-const float densidade = 1.99;
-float massaG;
-float mediaRound = 0; 
-//primeira media das leituras
-const int bufferSize1 = 16;
-float ultraBuffer1[bufferSize1];
-int bufferIndex1 = 0;
-int bufferLength1 = 0; 
-float mediaUltra1 = 0;
 
-//faz a média da média da leitura
-const int bufferSize2 = 10;
-float ultraBuffer2[bufferSize2];
-int bufferIndex2 = 0;
-int bufferLength2 = 0; 
-float mediaUltra2 = 0;
-// VolumeTotal = 21.195
+/***************** SENSOR ULTRASSONICO *****************/
 
-// Medir em um copo graduado a quantidade de 100g (por ex) de areia
-// verificar quantos mL deu = 50ml
-// Converter para m3 = 0.00005 m3
-// dividir kg/m3 (calculo da densidade), no caso 0.1kg/X m3 (do copo graduado convertido em m3)0,000005
-// Sabendo o volume em m3 (leitura do sensor)
-// multiplicar m3 pela desidade (kg/m3) VolumeOcupado
-// m3 (sensor) x    Kg
-//                ------    = Kg
-//                  m3
+#define COEF_VEL_SOM_POR_CM     0.034/2
+#define TRIG_PIN                9
+#define ECHO_PIN                10
+
+SensorUltrassonico sensor(TRIG_PIN, ECHO_PIN);
+
+
+/********************* FILTROS *************************/
+
+#define TAMANHO_FILTRO_1      16
+#define TAMANHO_FILTRO_2      8
+
+Filtro filtro1(TAMANHO_FILTRO_1);
+Filtro filtro2(TAMANHO_FILTRO_2);
+
+
+/******************* CONVERSOR *************************/
+
+#define ALTURA_MAX          12.10
+#define RAIO                4
+#define AREA                3.14 * pow(RAIO, 2)
+#define DENSIDADE           1.99
+#define VOLUME_TOTAL        ALTURA_MAX * AREA
+
+Conversor conversor(VOLUME_TOTAL);
 
 
 void setup() {
-
   lcd.begin(16, 2);
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
+  sensor.inicializar();
   Serial.begin(9600);
-}
-
-
-void DisplayProcedure()
-{
-  lcd.clear();
-  lcd.setCursor(0, 0);
-  lcd.print("Distancia: ");
-  lcd.print(mediaRound);
-  lcd.print("g");
-  delay(10);
-  lcd.setCursor(0, 1);
-  lcd.print("Volume: ");
-  lcd.print(volumeOcupado);
-  lcd.print("cm3");
-  lcd.display();
-  delay(10);
-  if (distanceCm <= 0) {
-    tone(11, 400, 100);
-  }
-  else {
-    noTone(11);
-  }
 }
 
 void loop() {
 
-for(int i=0;i<4;i++)
-{
- UltrassonicProcedure();
-  delay(10);
-   
-}
+  for(int i=0;i<4;i++)
+  {
+    ProcedimentoSensor();
+    delay(10);
+  }
 
-  DisplayProcedure();
-  
+  ProcedimentoDisplay();
   delay(50);
 }
