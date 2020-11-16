@@ -48,7 +48,7 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 /***************** SENSOR ULTRASSONICO *****************/
 
-#define COEF_VEL_SOM_POR_CM     0.034/2
+#define COEF_VEL_SOM_POR_CM     0.034/2  // coeficiente da velocidade do som em cm/us
 #define TRIG_PIN                9
 #define ECHO_PIN                10
 
@@ -58,9 +58,9 @@ SensorUltrassonico sensor(TRIG_PIN, ECHO_PIN);
 /********************* FILTROS *************************/
 
 #define TAMANHO_FILTRO_1      16
-#define TAMANHO_FILTRO_2      8
-
 Filtro filtro1(TAMANHO_FILTRO_1);
+
+#define TAMANHO_FILTRO_2      8
 Filtro filtro2(TAMANHO_FILTRO_2);
 
 
@@ -68,9 +68,10 @@ Filtro filtro2(TAMANHO_FILTRO_2);
 
 #define ALTURA_MAX          12.10
 #define RAIO                4
-#define AREA                3.14 * pow(RAIO, 2)
-#define DENSIDADE           1.99
+#define AREA                3.14 * pow(RAIO, 2) // pow(2,3) => 2 * 2 * 2 => 2^3
 #define VOLUME_TOTAL        ALTURA_MAX * AREA
+
+#define DENSIDADE           1.99
 
 Conversor conversor(VOLUME_TOTAL);
 

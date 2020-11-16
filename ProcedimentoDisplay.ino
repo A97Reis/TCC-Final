@@ -18,6 +18,10 @@ void ProcedimentoDisplay()
   lcd.print(linha);
   lcd.display();
   delay(10);
+
+  // aonde esta ligado o pino 11??
+  // talvez aqui seja necessário verificar a leitura do sensor
+  float distancia = conversor.distanciaFiltro2;
   if (distancia <= 0) {
     tone(11, 400, 100);
   }
