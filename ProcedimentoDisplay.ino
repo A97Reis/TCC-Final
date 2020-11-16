@@ -1,14 +1,14 @@
 void ProcedimentoDisplay()
 {
   char linha[16];
-  float distancia = filtro1.lerMedia();
+  float valor = conversor.distanciaFiltro2;
 
   // limpa display
   lcd.clear();
 
   // mostra linha 1
   lcd.setCursor(0, 0);
-  sprintf(&linha[0], "Distancia: %.2f cm", distancia);
+  sprintf(&linha[0], "Distancia: %.2f cm", valor);
   lcd.print(linha);
   delay(10);
 

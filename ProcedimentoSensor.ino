@@ -1,6 +1,7 @@
 void ProcedimentoSensor()
 {
-  float distancia;
+  float distancia1, distancia2;
+  float distancia = 0;
 
   // le a distancia do sensor ultrassonico
   distancia = sensor.ler();
@@ -11,11 +12,17 @@ void ProcedimentoSensor()
   // atualiza o filtro 2
   filtro2.atualizar(filtro1.lerMedia());
 
-  // trunca a distancia com uma casa deciaml
-  distancia = filtro2.lerMedia();
-  distancia = (int)(distancia * 10);
-  distancia = ((float)distancia)/10;
+  // trunca a distancia com uma casa decimal
+  distancia1 = truncar_distancia(filtro1.lerMedia());
+  distancia2 = truncar_distancia(filtro2.lerMedia());
 
   // atualiza o conversor com a distancia truncada
-  conversor.atualizar(distancia);
+  conversor.atualizar(distancia1, distancia2);
+}
+
+float truncar_distancia(float valor)
+{
+  float aux = valor;
+  aux = (int) (aux * 10);
+  return ((float) aux)/10;
 }

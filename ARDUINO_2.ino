@@ -29,13 +29,14 @@ class Filtro
 
 class Conversor{
   public:
-    float distancia;
-    float volume;
-    float volumeMedido;
-    float volumeTotal;
-    float peso;
+    float distanciaFiltro1; // distancia medida pelo sensor
+    float distanciaFiltro2; // distancia medida pelo sensor
+    float volume; // volumeTotal - volumeMedido
+    float volumeMedido; // volume calculado a partir da distancia
+    float volumeTotal; // volume Total do recipiente
+    float peso; 
     Conversor(float volumeTotal);
-    void atualizar(float distancia);
+    void atualizar(float distanciaFiltro1, float distanciaFiltro2);
 };
 
 
